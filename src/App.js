@@ -2,6 +2,8 @@ import { useState } from 'react';
 import './App.scss';
 import TodoList from './component/TodoList';
 import TodoForm from './component/TodoForm'
+import TestApi from './component/TestApi';
+
 function App() {
   const [todoList, setTodoList] = useState([
     { id: 1, title: "a" },
@@ -16,6 +18,13 @@ function App() {
      newTodoList.splice(index,1);
      setTodoList(newTodoList)
   }
+  const handleAdd = (element) =>{
+    const newTodoList = [...todoList];
+    newTodoList.push(element);
+    setTodoList(
+      newTodoList
+    )
+  }
   return (
     <div className="app">
       wellcom
@@ -24,7 +33,10 @@ function App() {
         todos={todoList}
         onTodoClick={onTodoClick}
       />
-      <TodoForm/>
+      <TodoForm
+      add={handleAdd} 
+      />
+      <TestApi/>
     </div>
   );
 }

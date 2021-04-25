@@ -17,7 +17,6 @@ function TodoList(props) {
             onTodoClick(element)
         }
     }
-
     return (
         <div>
             <ul className="todolist">

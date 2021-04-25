@@ -1,31 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-index.propTypes = {
-
+TodoForm.propTypes = {
+    add:PropTypes.func
 };
+TodoForm.defaultProps ={
+    add:null
+}
+function TodoForm(props) {
+    const [inputValues, setInputValues] = useState({
+        id:"",
+        title:""
+    });
+    const getValue = (event) => {
+        const { name, value } = event.target;
+        setInputValues(
+            {...inputValues,
+            [name]: value }
+        );
 
-function index(props) {
+    }
+    const getValueForm = () => {
+        const {add} = props;
+        if(add){
+            add(inputValues);
+        }
+
+    }
     return (
-        <div>
-            <form>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+        <div className="container-fluid wrapper">
+            <div className="row">
+                <div className="col-sm-4">
+                    <div className="form-group">
+                        <label htmlFor="exampleInputEmail1">ID : </label>
+                        <input onChange={getValue} name="id" id="id" type="text" className="form-control" placeholder="Enter ID" />
+
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="exampleInputPassword1">Title : </label>
+                        <input  onChange={getValue} name="title" type="password" className="form-control" id="exampleInputPassword1" placeholder="title" />
+                    </div>
+                    <button onClick={(event) => { getValueForm(event) }} type="submit" className="btn btn-primary">Submit</button>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-                </div>
-                <div className="form-check">
-                    <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-                </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+
+            </div>
         </div>
     );
 }
 
-export default index;
+export default TodoForm;
